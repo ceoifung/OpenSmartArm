@@ -10,25 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Private Repository
         uses: actions/checkout@v2
-
-      - name: Download Window artifact
+        with:
+          repository: ceoifung/smart-arm
+          ref: master
+          token: ${{ secrets.ACCESS_TOKEN }}
+      
+      - name: Download Windows Artifact
         uses: actions/download-artifact@v2
         with:
           name: windows-2019
-          repository: ceoifung/smart-arm
-          ref: master
-          token: ${{ secrets.ACCESS_TOKEN }}
           path: build/
-      - name: Download MacOS artifact
+      - name: Download MacOS Artifact
         uses: actions/download-artifact@v2
         with:
           name: macos-11
-          repository: ceoifung/smart-arm
-          ref: master
-          token: ${{ secrets.ACCESS_TOKEN }}
           path: build/
+          
       - name: Unzip Packages
         run: |
           ls
