@@ -21,7 +21,6 @@ jobs:
           ref: master
           token: ${{ secrets.ACCESS_TOKEN }}
           path: build/
-          
       - name: Download MacOS artifact
         uses: actions/download-artifact@v2
         with:
@@ -30,7 +29,14 @@ jobs:
           ref: master
           token: ${{ secrets.ACCESS_TOKEN }}
           path: build/
-
+      - name: Unzip Packages
+        run: |
+          ls
+          cd build
+          unzip windows-2019.zip
+          unzip macos-11.zip
+          rm -rf *.zip
+          ls
       - name: release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
